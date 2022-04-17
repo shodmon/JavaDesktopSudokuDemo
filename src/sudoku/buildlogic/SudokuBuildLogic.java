@@ -10,7 +10,7 @@ import sudoku.userinterface.logic.ControlLogic;
 import java.io.IOException;
 
 public class SudokuBuildLogic {
-    public static void build (IUserInterfaceContract.View userInterface) throws IOException {
+    public static void build (IUserInterfaceContract.View userInterface) throws IOException, ClassNotFoundException {
         SudokuGame initialState;
         IStorage storage = new LocalStorageImpl();
 

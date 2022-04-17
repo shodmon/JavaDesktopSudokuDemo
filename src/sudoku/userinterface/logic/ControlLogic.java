@@ -21,7 +21,7 @@ public class ControlLogic implements IUserInterfaceContract.EventListener {
     }
 
     @Override
-    public void onSudokuInput(int x, int y, int input) {
+    public void onSudokuInput(int x, int y, int input) throws Exception {
         try {
             SudokuGame gameData = storage.getGameData();
             int [][] newGridState = gameData.getCopyOfGridState();
@@ -47,7 +47,7 @@ public class ControlLogic implements IUserInterfaceContract.EventListener {
     }
 
     @Override
-    public void onDialogClick() {
+    public void onDialogClick() throws Exception {
         try {
             storage.updateGameData(
                     GameLogic.getNewGame()

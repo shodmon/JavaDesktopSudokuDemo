@@ -64,8 +64,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
 			int thickness;
 			if (index == 2 || index == 5) {
 				thickness = 3;
-			}
-			else {
+			} else {
 				thickness = 2;
 			}
 
@@ -193,8 +192,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
 					if (value.equals("")) {
 						tile.setStyle("-fx-opacity: 1;");
 						tile.setDisable(false);
-					}
-					else {
+					} else {
 						tile.setStyle("-fx-opacity: 0.8;");
 						tile.setDisable(true);
 					}
@@ -204,7 +202,7 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
 	}
 
 	@Override
-	public void showDialog(String message) {
+	public void showDialog(String message) throws Exception {
 		Alert dialog = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.OK);
 		dialog.showAndWait();
 
@@ -223,19 +221,27 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View, EventHand
 		if (event.getEventType() == KeyEvent.KEY_PRESSED) {
 			if (event.getText().matches("[0-9]")) {
 				int value = Integer.parseInt(event.getText());
-				handleInput(value, event.getSource());
-			}
-			else if (event.getCode() == KeyCode.BACK_SPACE)
-				;
-			{
-				handleInput(0, event.getSource());
-			}
-			((TextField) event.getSource()).setText("");
-			//
+				try {
+					handleInput(value, event.getSource());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if (event.getCode() == KeyCode.BACK_SPACE) {
+				try {
+					handleInput(0, event.getSource());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} /*
+				 * else { ((TextField) event.getSource()).setText(""); }
+				 */
 		}
+		event.consume();
 	}
 
-	private void handleInput(int value, Object source) {
+	private void handleInput(int value, Object source) throws Exception {
 		listener.onSudokuInput(((SudokuTextField) source).getX(), ((SudokuTextField) source).getY(), value);
 	}
 }
